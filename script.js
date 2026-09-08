@@ -4,8 +4,9 @@ const containerVideos = document.querySelector(".videos__container");
 
 async function buscarEMostrarVideos() {
   try {
-    const busca = await axios.get("http://localhost:3000/videos");
-    const videos = await busca.data;
+    const urlVideos = import.meta.env.VITE_URL_VIDEOS
+    const busca = await axios.get(urlVideos);
+    const videos = busca.data.videos;
 
     videos.forEach((video) => {
       if (video.categoria == "") {
@@ -15,7 +16,7 @@ async function buscarEMostrarVideos() {
                 <li class="videos__item">
                     <iframe src="${video.url}" title="${video.titulo}" frameborder="0" allowfullscreen></iframe>
                     <div class="descricao-video">
-                        <img class="img-canal" src="${video.imagem} alt="Logo do Canal">
+                        <img class="img-canal" src="${video.imagem}" alt="Logo do Canal">
                         <h3 class="titulo-video">${video.titulo}</h3>
                         <p class="titulo-canal">${video.descricao}</p>
                         <p class="categoria" hidden>${video.categoria}</p>
